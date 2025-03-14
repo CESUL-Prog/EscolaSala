@@ -55,4 +55,48 @@ public class Escola {
     public void removerMatricula(String matriculaAluno, String codigoCurso){
 
     }
+
+
+
+
+    // Lista todos os alunos matriculados em um curso especifico
+    public void listarAlunosPorCurso(){
+
+    }
+
+    //Calcula a media de notas dos alunos em um curso
+    //Regra: Considere apenas matriculas com nota valida (>=0)
+    public void calcularMediaNotasPorCurso(){
+
+    }
+
+    //Atribui uma nota a uma matricula especifica
+    //Regra: A nota deve ser entre 0 e 10; caso contrario, msg de erro
+    public void atribuirNota(){
+
+    }
+
+    //Busca alunos pelo nome (case insensitive)
+    public void buscarAlunoPorNome(){
+
+    }
+
+    //Lista todos os cursos com media de notas
+    // acima de um determinado valor (parametro)
+    public void listarCursosComMediaAcima(){
+
+    }
+
+    // EXIBE um ranking de alunos baseado na media das notas de todas as matriculas
+    // Ordene a lista de forma decrescente pela media
+    public void rankearAlunos(){
+
+    }
+
+
+    // Exibe um relatorio geral com as info do sistema
+    // (mostre todas as info nos prints)
+    public void gerarRelatorioGeral(){
+
+    }
 }
