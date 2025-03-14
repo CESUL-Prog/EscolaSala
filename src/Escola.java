@@ -52,23 +52,74 @@ public class Escola {
 
     // Remover a matricula de um aluno.matricula em um curso.codigo
     // Regra: Se a matrícula não for encontrada, printe erro
-    public void removerMatricula(String matriculaAluno, String codigoCurso){
+    public void removerMatricula(String matriculaAluno,
+                                 String codigoCurso){
+        boolean removido = false;
+        for(int i = 0; i < matriculas.size(); i ++){
+            //matriculas[i];
+            Matricula m = matriculas.get(i);
+
+            if(m.aluno.matricula.equals(matriculaAluno) &&
+                    m.curso.codigo.equals(codigoCurso)){
+                matriculas.remove(i);
+                removido = true;
+                System.out.println("Matricula removida com sucesso!");
+                break;
+            }
+        }
+
+        if(!removido){
+            System.out.println("Matricula nao encontrada para remoção");
+        }
 
     }
-
-
 
 
     // Lista todos os alunos matriculados em um curso especifico
-    public void listarAlunosPorCurso(){
+    // Faça um for nas matriculas, e uma vez encontrado o curso,
+    // printe o exibirInfo em matricula.aluno.exibirInfo()
+    public void listarAlunosPorCurso(String codigoCurso){
+        System.out.println("Alunos matriculados no curso de código: "
+                + codigoCurso + ":");
+        boolean encontrou = false;
 
+        for(Matricula m : matriculas){
+            if(m.curso.codigo.equals(codigoCurso)){
+                m.aluno.exibirInfo();
+                encontrou = true;
+            }
+        }
+        if(!encontrou){
+            System.out.println("Nenhum aluno matriculado");
+        }
     }
 
-    //Calcula a media de notas dos alunos em um curso
+    //Calcula a media de notas dos alunos em um curso especifico
     //Regra: Considere apenas matriculas com nota valida (>=0)
-    public void calcularMediaNotasPorCurso(){
+    public void calcularMediaNotasPorCurso(String codigoCurso){
+        double soma = 0;
+        int cont = 0;
+        for(Matricula m : matriculas){
+            if(m.curso.codigo.equals(codigoCurso) && m.nota >= 0){
+                soma += m.nota;
+                cont++;
+            }
+        }
 
+        if(cont == 0){
+            System.out.println("Nenhuma nota registrada para este curso");
+        }else{
+            double media = soma / cont;
+            System.out.println("Media: " + media);
+        }
     }
+
+
+
+
+
+
+
 
     //Atribui uma nota a uma matricula especifica
     //Regra: A nota deve ser entre 0 e 10; caso contrario, msg de erro
@@ -83,7 +134,7 @@ public class Escola {
 
     //Lista todos os cursos com media de notas
     // acima de um determinado valor (parametro)
-    public void listarCursosComMediaAcima(){
+    public void listarCursosComMediaAcima(double media){
 
     }
 
