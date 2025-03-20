@@ -114,28 +114,70 @@ public class Escola {
         }
     }
 
-
-
-
-
-
-
-
     //Atribui uma nota a uma matricula especifica
     //Regra: A nota deve ser entre 0 e 10; caso contrario, msg de erro
-    public void atribuirNota(){
-
+    public void atribuirNota(String matriculaAluno, double nota){
+        boolean encontrado = false;
+        for(Matricula m : matriculas){
+            if(m.aluno.matricula.equals(matriculaAluno)){
+                m.setNota(nota);
+                System.out.println("Nota atribuída com sucesso");
+                encontrado = true;
+                break;
+            }
+        }
+        if(!encontrado){
+            System.out.println("Matrícula não encontrada");
+        }
     }
 
-    //Busca alunos pelo nome (case insensitive)
-    public void buscarAlunoPorNome(){
+    //Busca alunos pelo nome (case Insensitive)
+    // Case-sensitive: idade != Idade
+    // Case-Insensitive: mario == mario
+    public void buscarAlunoPorNome(String nomeBusca){
+        System.out.println("Resultados da busca por " + nomeBusca + ": ");
+        boolean encontrou = false;
+        for(Aluno a : alunos){
+            if(a.nome.toLowerCase().contains(nomeBusca.toLowerCase())){
+                a.exibirInfo();
+                encontrou = true;
+                break;
+            }
+        }
 
+        if(!encontrou){
+            System.out.println("Aluno não encontrado");
+        }
     }
 
     //Lista todos os cursos com media de notas
     // acima de um determinado valor (parametro)
     public void listarCursosComMediaAcima(double media){
+        System.out.println("Cursos com média acima de: " + media + ": ");
+        boolean encontrou = false;
 
+        for(Curso c : cursos){
+            double soma = 0;
+            int cont = 0;
+
+            for(Matricula m : matriculas){
+                if(m.curso.codigo.equals(c.codigo)){
+                    soma += m.nota;
+                    cont++;
+                }
+            }
+            if(cont > 0){
+                double mediaFinal = soma / cont;
+                if(mediaFinal > media){
+                    c.exibirInfo();
+                    System.out.println("Média: " + mediaFinal);
+                    encontrou = true;
+                }
+            }
+        }
+        if(!encontrou){
+            System.out.println("Nenhum curso cencontrado com media acima de" + media);
+        }
     }
 
     // EXIBE um ranking de alunos baseado na media das notas de todas as matriculas
@@ -148,6 +190,8 @@ public class Escola {
     // Exibe um relatorio geral com as info do sistema
     // (mostre todas as info nos prints)
     public void gerarRelatorioGeral(){
-
+        // Total de alunos, total de matriculas, total de cursos
+        // Média geral das notas
     }
+
 }
