@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 // Escola vai gerenciar o cadastro de alunos,
 // cursos e matrículas
@@ -183,15 +185,65 @@ public class Escola {
     // EXIBE um ranking de alunos baseado na media das notas de todas as matriculas
     // Ordene a lista de forma decrescente pela media
     public void rankearAlunos(){
+        ArrayList<AlunoMedia> ranking = new ArrayList<>();
+        // 1º percorrer todos os alunos
+        for(Aluno a : alunos){
+            double soma = 0;
+            int cont = 0;
 
+            for(Matricula m : matriculas){
+                if(m.aluno.matricula.equals(a.matricula)){
+                    soma += m.nota;
+                    cont++;
+                }
+            }
+            if(cont > 0){
+                double media = soma / cont;
+                ranking.add(new AlunoMedia(a, media));
+            }
+        }
+
+        Comparator comparador = new Comparator<AlunoMedia>(){
+            public int compare(AlunoMedia am1, AlunoMedia am2){
+                if(am1.media < am2.media) return 1;
+                else if(am1.media > am2.media) return -1;
+                else return 0;
+            }
+        };
+
+        Collections.sort(ranking, comparador);
+        //ranking.sort((am1, am2) -> Double.compare(am2.media, am1.media));
+
+        System.out.println("Ranking de alunos: ");
+        for(AlunoMedia am : ranking){
+            am.aluno.exibirInfo();
+            System.out.println("Média: " + am.media);
+            System.out.println("-----------");
+        }
     }
 
 
     // Exibe um relatorio geral com as info do sistema
     // (mostre todas as info nos prints)
-    public void gerarRelatorioGeral(){
-        // Total de alunos, total de matriculas, total de cursos
-        // Média geral das notas
-    }
+    public void gerarRelatorioGeral() {
+        System.out.println("-- Relatório geral --");
+        System.out.println("Total de alunos: " + alunos.size());
+        System.out.println("Total de cursos: " + cursos.size());
+        System.out.println("Total de matriculas: " + matriculas.size());
 
+        double soma = 0;
+        int cont = 0;
+
+        for (Matricula m : matriculas) {
+            soma += m.nota;
+            cont++;
+        }
+
+        if (cont > 0) {
+            double mediaGeral = soma / cont;
+            System.out.println("Média: " + mediaGeral);
+        } else {
+            System.out.println("Nenhuma nota no sistema");
+        }
+    }
 }
