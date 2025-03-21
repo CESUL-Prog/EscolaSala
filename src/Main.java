@@ -35,8 +35,46 @@ public class Main {
                     sistema.cadastrarAluno(alunoCadastro);
                     break;
                 case 2:
+                    System.out.println("Digite o código do curso");
+                    String codigo = scanner.nextLine();
+                    System.out.println("Digite o nome do curso");
+                    String nome = scanner.nextLine();
+                    System.out.println("Digite a carga horaria");
+                    int carga = scanner.nextInt();
+                    scanner.nextLine();
 
+                    Curso curso = new Curso(codigo, nome, carga);
+                    sistema.cadastrarCurso(curso);
+                    break;
                 case 3:
+                    if(sistema.alunos.isEmpty() || sistema.cursos.isEmpty()){
+                        System.out.println("É necessario ter alunos e cursos");
+                    }else{
+                        System.out.println("Alunos disponiveis: ");
+                        for(int i = 0; i < sistema.alunos.size(); i++){
+                            System.out.println(i + " -");
+                            sistema.alunos.get(i).exibirInfo();
+                            // 0 - Nome: Juliano, matricula: 22
+                        }
+                        System.out.println("Escolha o índice do aluno: ");
+                        int indiceAluno = scanner.nextInt();
+                        scanner.nextLine();
+
+                        System.out.println("Cursos disponiveis: ");
+                        for(int i = 0; i < sistema.cursos.size(); i++){
+                            System.out.println(i + " -");
+                            sistema.cursos.get(i).exibirInfo();
+                        }
+                        System.out.println("Escolha o índice do curso: ");
+                        int indiceCurso = scanner.nextInt();
+                        scanner.nextLine();
+
+                        Matricula matricula = new Matricula(sistema.alunos.get(indiceAluno),
+                                sistema.cursos.get(indiceCurso));
+
+                        sistema.matricularAluno(matricula);
+                    }
+                    break;
                 case 4:
                 case 5:
                 case 6:
